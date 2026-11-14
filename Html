@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador 3D: Sol, Tierra y Luna</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-color: #000;
+            font-family: sans-serif;
+        }
+        #info {
+            position: absolute;
+            top: 10px;
+            width: 100%;
+            text-align: center;
+            color: white;
+            pointer-events: none;
+            font-size: 16px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+        }
+    </style>
+</head>
+<body>
+    <div id="info">Haz clic en el Sol, la Tierra o la Luna para enfocarlos</div>
+
+    <!-- Importar Three.js desde CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <script>
+        // 1. Configuración básica de la escena, cámara y renderizador
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+
+        // Luz ambiental y luz puntual desde el Sol
+        const ambientLight = new THREE.AmbientLight(0x333333);
+        scene.add(ambientLight);
+
+        const sunLight = new THREE.PointLight(0xffffff, 2, 300);
+        scene.add(sunLight);
+
+        // 2. Creación de los Astros (Geometrías y Materiales)
+        const sphereGeo = new THREE.SphereGeometry(1, 32, 32);
+
+        // Sol
+        const sunMat = new THREE.MeshBasicMaterial({ color: 0xffcc00 });
+        const sun = new THREE.Mesh(sphereGeo, sunMat);
+        sun.scale.set(3, 3, 3); // Sol más grande
+        scene.add(sun);
+
+        // Pivote y Tierra
+        const earthOrbitPivot = new THREE.Object3D();
+        scene.add(earthOrbitPivot);
+
+        const earthMat = new THREE.MeshStandardMaterial({ color: 0x2233ff, roughness: 0.8 });
+        const earth = new THREE.Mesh(sphereGeo, earthMat);
+        earth.scale.set(1.2, 1.2, 1.2);
+        earth.position.x = 15; // Distancia al Sol
+        earthOrbitPivot.add(earth);
+
+        // Pivote y Luna (hija de la Tierra para que orbite a su alrededor)
+        const moonOrbitPivot = new THREE.Object3D();
+        earth.add(moonOrbitPivot); // Se añade a la Tierra
+
+        const moonMat = new THREE.MeshStandardMaterial({ color: 0x888888, roughness: 0.9 });
+        const moon = new THREE.Mesh(sphereGeo, moonMat);
+        moon.scale.set(0.4, 0.4, 0.4);
+        moon.position.x = 3; // Distancia a la Tierra
+        moonOrbitPivot.add(moon);
+
+        // Array para detectar clics
+        const clickableObjects = [sun, earth, moon];
+
+        // 3. Variables de control de cámara y enfoque
+        let targetFocus = null; // Objeto actual al que enfoca la cámara
+        const defaultCameraPos = new THREE.Vector3(0, 15, 30);
+        
+        // 4. Sistema de Raycasting para clics
+        const raycaster = new THREE.Raycaster();
+        const mouse = new THREE.Vector2();
+
+        window.addEventListener('click', (event) => {
+            mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+            mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+            raycaster.setFromCamera(mouse, camera);
+            const intersects = raycaster.intersectObjects(clickableObjects);
+
+            if (intersects.length > 0) {
+                targetFocus = intersects[0].object; // Selecciona el objeto tocado
+            } else {
+                targetFocus = null; // Si hace clic en el vacío, regresa la vista general
+            }
+        });
+
+        // 5. Bucle de animación y renderizado
+        function animate() {
+            requestAnimationFrame(animate);
+
+            // Rotaciones propias de los planetas
+            sun.rotation.y += 0.002;
+            earth.rotation.y += 0.01;
+            moon.rotation.y += 0.005;
+
+            // Movimiento orbital
+            earthOrbitPivot.rotation.y += 0.005; // La Tierra orbita el Sol
+            moonOrbitPivot.rotation.y += 0.02;   // La Luna orbita la Tierra
+
+            // Lógica de enfoque de cámara (Suavizado con Lerp)
+            const desiredCameraPos = new THREE.Vector3();
+            const desiredLookAt = new THREE.Vector3();
+
+            if (targetFocus) {
+                // Obtener posición mundial exacta del astro seleccionado
+                targetFocus.getWorldPosition(desiredLookAt);
+                
+                // Posicionar la cámara cerca del objeto según su tamaño
+                const offset = targetFocus === sun ? 10 : 4;
+                desiredCameraPos.copy(desiredLookAt).add(new THREE.Vector3(0, offset * 0.8, offset));
+            } else {
+                // Vista general por defecto
+                desiredCameraPos.copy(defaultCameraPos);
+                desiredLookAt.set(0, 0, 0);
+            }
+
+            // Interpolación suave (lerp) para la posición de la cámara y hacia dónde mira
+            camera.position.lerp(desiredCameraPos, 0.05);
+            
+            // Creamos un punto intermedio para la dirección de la cámara para que no sea brusco
+            const currentLookAt = new THREE.Vector3();
+            camera.getWorldDirection(currentLookAt);
+            // Simplificación de transición visual hacia el objetivo
+            camera.lookAt(desiredLookAt);
+
+            renderer.render(scene, camera);
+        }
+
+        // Ajustar tamaño si se redimensiona la ventana
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        animate();
+    </script>
+</body>
+</html>
