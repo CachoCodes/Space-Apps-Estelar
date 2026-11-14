@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ARTEMISFORGE // Monograph &amp; Tactical Surface Navigator [89.9°S]</title>
+    <!-- Authentic Editorial & Technical Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,600;0,700;1,400&family=Instrument+Serif:ital@0;1&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script type="module" crossorigin src="/assets/index-BEPNPOZs.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-B4e9yqKJ.css">
+  </head>
+  <body>
+    <div class="grain-overlay" aria-hidden="true"></div>
+
+    <div class="app-shell">
+      <!-- Asymmetric Editorial & Flight-Deck Masthead -->
+      <header class="masthead reveal-step" style="--delay: 0ms;">
+        <div class="masthead-left">
+          <div class="serial-stamp">
+            <span>DOC // NASA-SP-2026</span>
+            <span class="sep">/</span>
+            <span>SECTOR 89.9°S 0.0°E</span>
+          </div>
+          <div class="masthead-title-row">
+            <h1 class="editorial-logo">
+              Artemis<em>Forge</em>
+            </h1>
+            <span class="mission-sub-tag" id="i18n-subtitle">
+              NASA SPACE APPS 2026 • THE NEXT FRONTIER • LUNAR SOUTH POLE TACTICAL AI
+            </span>
+          </div>
+        </div>
+
+        <div class="masthead-right">
+          <div class="telemetry-tape">
+            <span class="tape-dot"></span>
+            <span id="i18n-statusReady">LRO PDS TELEMETRY ONLINE</span>
+            <strong id="compute-time-badge">(12ms)</strong>
+          </div>
+
+          <button class="mech-btn lang-switch" id="btn-lang-toggle" title="Switch Language EN / ES">
+            [ES / EN]
+          </button>
+
+          <button class="mech-btn mech-btn-ink" id="btn-open-pitch">
+            <span class="btn-index">07</span>
+            <span id="i18n-btnPitch">7-Slide Pitch Deck</span>
+          </button>
+
+          <button class="mech-btn mech-btn-orange" id="btn-export-pdf">
+            <span class="btn-index">PDF</span>
+            <span id="i18n-btnExportPdf">Export NASA EVA Dossier (PDF)</span>
+          </button>
+        </div>
+      </header>
+
+      <!-- Asymmetric Architectural Workspace -->
+      <main class="tactical-layout">
+        <!-- Left Column: Stepped Field Manual Controls -->
+        <aside class="field-column left-column">
+          <!-- 01 / Mission Sortie Selector -->
+          <section class="dossier-block reveal-step" style="--delay: 60ms;">
+            <div class="block-spine">01 // SORTIE</div>
+            <div class="block-content">
+              <div class="block-label" id="i18n-panelMissionTitle">1. ARTEMIS MISSION PRESETS</div>
+              <select id="mission-preset-select" class="brutal-select"></select>
+              <p id="mission-preset-desc" class="editorial-notes"></p>
+            </div>
+          </section>
+
+          <!-- 02 / Multi-Spectral PDS Rasters -->
+          <section class="dossier-block reveal-step" style="--delay: 120ms;">
+            <div class="block-spine">02 // PDS</div>
+            <div class="block-content">
+              <div class="block-label" id="i18n-panelLayersTitle">2. MULTI-SPECTRAL PDS LAYERS</div>
+              <div class="layer-stack">
+                <button class="layer-btn active" data-layer="optical">
+                  <span class="layer-code">OPT-01</span>
+                  <span class="layer-name" id="i18n-layerOptical">Optical / ShadowCam Albedo</span>
+                  <span class="layer-bar" style="background: linear-gradient(90deg, #1c1917, #e7e5e4);"></span>
+                </button>
+                <button class="layer-btn" data-layer="slope">
+                  <span class="layer-code">SLP-02</span>
+                  <span class="layer-name" id="i18n-layerSlope">LRO LOLA Slope Hazard (°)</span>
+                  <span class="layer-bar" style="background: linear-gradient(90deg, #84cc16, #f59e0b, #ef4444);"></span>
+                </button>
+                <button class="layer-btn" data-layer="thermal">
+                  <span class="layer-code">DIV-03</span>
+                  <span class="layer-name" id="i18n-layerThermal">Diviner Temp &amp; Water Ice (&lt;110K)</span>
+                  <span class="layer-bar" style="background: linear-gradient(90deg, #38bdf8, #818cf8, #ff5500);"></span>
+                </button>
+                <button class="layer-btn" data-layer="comms">
+                  <span class="layer-code">DSN-04</span>
+                  <span class="layer-name" id="i18n-layerComms">Earth DSN Line-of-Sight (LOS)</span>
+                  <span class="layer-bar" style="background: linear-gradient(90deg, #a3e635, #38bdf8, #e11d48);"></span>
+                </button>
+              </div>
+            </div>
+          </section>
+
+          <!-- 03 / Grazing Ephemeris Engine -->
+          <section class="dossier-block reveal-step" style="--delay: 180ms;">
+            <div class="block-spine">03 // SOL</div>
+            <div class="block-content">
+              <div class="block-label" id="i18n-panelSunTitle">3. GRAZING SOLAR ENGINE (1.6° ELEV)</div>
+              <div class="slider-group">
+                <div class="slider-meta">
+                  <span id="i18n-sunAzimuthLabel">Solar Azimuth (Synodic Phase)</span>
+                  <strong class="mono-val" id="val-sun-azimuth">315°</strong>
+                </div>
+                <input type="range" id="slider-sun-azimuth" min="0" max="359" step="1" value="315" />
+                <div class="ruler-ticks">
+                  <span>0°N</span><span>90°E</span><span>180°S</span><span>270°W</span><span>360°</span>
+                </div>
+              </div>
+              <button class="mech-btn full-width" id="btn-animate-sun">
+                <span>⟳</span> <span id="i18n-btnAnimateSun">Orbit Sun (360° Lunar Day)</span>
+              </button>
+            </div>
+          </section>
+
+          <!-- 04 / 4D Cost Tensor Kinematics -->
+          <section class="dossier-block reveal-step" style="--delay: 240ms;">
+            <div class="block-spine">04 // COST</div>
+            <div class="block-content">
+              <div class="block-label" id="i18n-panelCostTitle">4. 4D A* PATHFINDER WEIGHTS</div>
+
+              <div class="slider-group">
+                <div class="slider-meta">
+                  <span id="i18n-maxSlopeLabel">Max Safe Rover Slope (°)</span>
+                  <strong class="mono-val" id="val-max-slope">15.0°</strong>
+                </div>
+                <input type="range" id="slider-max-slope" min="10" max="24" step="0.5" value="15" />
+              </div>
+
+              <div class="slider-group">
+                <div class="slider-meta">
+                  <span id="i18n-weightSlopeLabel">Slope Rollover Penalty</span>
+                  <strong class="mono-val" id="val-w-slope">4.0x</strong>
+                </div>
+                <input type="range" id="slider-w-slope" min="0.5" max="8" step="0.5" value="4.0" />
+              </div>
+
+              <div class="slider-group">
+                <div class="slider-meta">
+                  <span id="i18n-weightShadowLabel">Cryo Shadow Avoidance</span>
+                  <strong class="mono-val" id="val-w-shadow">2.2x</strong>
+                </div>
+                <input type="range" id="slider-w-shadow" min="0" max="6" step="0.2" value="2.2" />
+              </div>
+
+              <div class="slider-group">
+                <div class="slider-meta">
+                  <span id="i18n-weightCommsLabel">Earth DSN Comms Priority</span>
+                  <strong class="mono-val" id="val-w-comms">2.5x</strong>
+                </div>
+                <input type="range" id="slider-w-comms" min="0" max="6" step="0.5" value="2.5" />
+              </div>
+            </div>
+          </section>
+
+          <!-- 05 / Surface Vector Assignment -->
+          <section class="dossier-block reveal-step" style="--delay: 300ms;">
+            <div class="block-spine">05 // VEC</div>
+            <div class="block-content">
+              <div class="block-label" id="i18n-clickModeTitle">5. INTERACTIVE TERRAIN CLICK MODE</div>
+              <div class="mode-switch-row">
+                <button class="mode-btn active" data-mode="inspect" id="i18n-modeInspect">Inspect Point</button>
+                <button class="mode-btn" data-mode="start" id="i18n-modeSetStart">Set HLS (A)</button>
+                <button class="mode-btn" data-mode="goal" id="i18n-modeSetGoal">Set Ice (B)</button>
+              </div>
+            </div>
+          </section>
+
+          <!-- 06 / Custom 3D Models (Rover, Earth, Sun) & Live NASA API -->
+          <section class="dossier-block reveal-step" style="--delay: 360ms;">
+            <div class="block-spine">06 // 3D+API</div>
+            <div class="block-content">
+              <div class="block-label">6. CUSTOM 3D MODELS (.GLB) &amp; NASA API</div>
+
+              <!-- Rover Model Selector + Upload -->
+              <div class="model-row">
+                <span class="model-label">ROVER 3D:</span>
+                <select id="select-rover-model" class="brutal-select compact-select">
+                  <option value="mars_perseverance">Mars Perseverance (6-Wheel + Arm)</option>
+                  <option value="viper_ltv">Artemis VIPER / LTV Lunar Rover</option>
+                  <option value="custom">Custom .GLB / .GLTF File...</option>
+                </select>
+                <label class="mech-btn compact file-label" title="Upload .glb/.gltf for Rover">
+                  +GLB <input type="file" id="file-rover-glb" accept=".glb,.gltf" hidden />
+                </label>
+              </div>
+
+              <!-- Earth Model Selector + Upload -->
+              <div class="model-row">
+                <span class="model-label">EARTH 3D:</span>
+                <select id="select-earth-model" class="brutal-select compact-select">
+                  <option value="blue_marble">Blue Marble + Clouds + Atmosphere</option>
+                  <option value="dsn_holo">DSN Tactical Telemetry Globe</option>
+                  <option value="custom">Custom .GLB / .GLTF File...</option>
+                </select>
+                <label class="mech-btn compact file-label" title="Upload .glb/.gltf for Earth">
+                  +GLB <input type="file" id="file-earth-glb" accept=".glb,.gltf" hidden />
+                </label>
+              </div>
+
+              <!-- Sun Model Selector + Upload -->
+              <div class="model-row">
+                <span class="model-label">SUN 3D:</span>
+                <select id="select-sun-model" class="brutal-select compact-select">
+                  <option value="corona_star">Solar Corona Plasma Star</option>
+                  <option value="ephemeris_beacon">High-Contrast Ephemeris Beacon</option>
+                  <option value="custom">Custom .GLB / .GLTF File...</option>
+                </select>
+                <label class="mech-btn compact file-label" title="Upload .glb/.gltf for Sun">
+                  +GLB <input type="file" id="file-sun-glb" accept=".glb,.gltf" hidden />
+                </label>
+              </div>
+
+              <!-- Moon Scale / Relief Amplifier -->
+              <div class="slider-group" style="margin-top: 6px;">
+                <div class="slider-meta">
+                  <span>Moon Scale &amp; Relief Exaggeration</span>
+                  <strong class="mono-val" id="val-moon-scale">2.2x</strong>
+                </div>
+                <input type="range" id="slider-moon-scale" min="1.0" max="3.5" step="0.1" value="2.2" />
+              </div>
+
+              <!-- Live NASA API Key / Endpoint Connector -->
+              <div class="api-box">
+                <input
+                  type="text"
+                  id="input-nasa-api"
+                  class="brutal-input"
+                  placeholder="Paste NASA API Key or WMTS/DEM URL..."
+                />
+                <button class="mech-btn compact mech-btn-orange" id="btn-connect-api">
+                  SYNC NASA API
+                </button>
+              </div>
+              <div id="api-status-msg" class="editorial-notes" style="margin-top: 4px; font-size: 10px;">
+                Source: LRO LOLA + Diviner PDS Grid + NASA Moon Trek Live Tile Draping.
+              </div>
+            </div>
+          </section>
+        </aside>
+
+        <!-- Center Stage: 3D Lunar WebGL Reticle + Oscilloscope Profile -->
+        <section class="center-stage reveal-step" style="--delay: 100ms;">
+          <div class="viewport-frame">
+            <!-- Apollo Hasselblad Camera Reseau Crosshairs (+) -->
+            <div class="reseau-grid" aria-hidden="true">
+              <span class="cross c-tl">+</span>
+              <span class="cross c-tr">+</span>
+              <span class="cross c-center">+</span>
+              <span class="cross c-bl">+</span>
+              <span class="cross c-br">+</span>
+            </div>
+
+            <div id="lunar-canvas-container"></div>
+
+            <!-- Asymmetric Floating Vector Tape -->
+            <div class="viewport-hud-top">
+              <div class="vector-plaque">
+                <div class="vec-item">
+                  <span class="vec-tag tag-hls">HLS-A</span>
+                  <strong id="hud-start-coords">89.842°S, 212.0°E</strong>
+                </div>
+                <div class="vec-divider">→</div>
+                <div class="vec-item">
+                  <span class="vec-tag tag-psr">PSR-B</span>
+                  <strong id="hud-goal-coords">89.810°S, 142.4°E</strong>
+                </div>
+                <div class="vec-divider">//</div>
+                <div class="vec-item">
+                  <span class="vec-tag tag-ltv">ROVER TELEMETRY</span>
+                  <strong id="hud-rover-live">0.0 km • 145K</strong>
+                </div>
+              </div>
+
+              <div class="cam-toolbar">
+                <button class="mech-btn compact mech-btn-orange" id="btn-expand-3d" title="Maximize 3D Viewport (Shortcut: F)">
+                  ⛶ MAX 3D VIEW
+                </button>
+                <button class="mech-btn compact" id="btn-toggle-rover" title="Play/Pause Rover">
+                  ⏯ ROVER DRIVE
+                </button>
+                <button class="mech-btn compact" id="btn-focus-rover" title="Follow Rover Close-Up">
+                  🎥 FOLLOW ROVER
+                </button>
+                <button class="mech-btn compact" id="btn-toggle-wire">
+                  ⌗ <span id="i18n-btnToggleWire">Grid Overlay</span>
+                </button>
+                <button class="mech-btn compact" id="btn-reset-cam">
+                  ⌖ <span id="i18n-btnResetCam">Reset 3D View</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Corner Editorial Watermark -->
+            <div class="viewport-watermark">
+              <span id="watermark-source-label">SHACKLETON SOUTH POLE // LRO LOLA 20M + NAC TEXTURE</span>
+            </div>
+          </div>
+
+          <!-- Bottom Asymmetric Oscilloscope Profile Deck -->
+          <div class="oscilloscope-dock">
+            <div class="osc-header">
+              <div class="osc-title-group">
+                <span class="osc-index">FIG. 02 //</span>
+                <span class="osc-title" id="i18n-chartTitle">
+                  TRAVERSE ELEVATION (m) &amp; DIVINER TEMPERATURE (K) PROFILE
+                </span>
+              </div>
+              <div class="osc-legend">
+                <span class="leg-chip"><i style="background: #b8ff01;"></i> LOLA ELEV (m)</span>
+                <span class="leg-chip"><i style="background: #ff5500;"></i> DIVINER TEMP (K)</span>
+                <span class="leg-chip"><i style="background: #f2efe9;"></i> ROVER POS</span>
+              </div>
+            </div>
+            <canvas id="profile-chart-canvas"></canvas>
+          </div>
+        </section>
+
+        <!-- Right Column: Asymmetric Editorial Ledger & Instrument Readout -->
+        <aside class="field-column right-column">
+          <!-- Stamped Mission Verdict Plaque -->
+          <div class="verdict-wrapper reveal-step" style="--delay: 120ms;">
+            <div class="verdict-caption">FLIGHT DIRECTOR CLEARANCE STAMP</div>
+            <div id="verdict-banner" class="verdict-banner GO">GO FOR EVA / ROVER SORTIE</div>
+          </div>
+
+          <!-- Asymmetric Staggered Telemetry Ledger -->
+          <section class="ledger-panel reveal-step" style="--delay: 190ms;">
+            <div class="ledger-header">
+              <span id="i18n-telemetryTitle">MISSION TELEMETRY &amp; PSR SORTIE BUDGET</span>
+              <span class="ledger-unit">LTV-3000Wh</span>
+            </div>
+
+            <!-- Hero Asymmetric Feature Row: Distance + Duration -->
+            <div class="hero-metrics-row">
+              <div class="hero-metric primary">
+                <span class="m-label" id="i18n-statDistance">Traverse Distance</span>
+                <div class="m-giant" id="stat-val-distance">4.77 km</div>
+              </div>
+              <div class="hero-metric secondary">
+                <span class="m-label" id="i18n-statDuration">Est. Mission Time (MET)</span>
+                <div class="m-large" id="stat-val-duration">1h 46m</div>
+              </div>
+            </div>
+
+            <!-- Asymmetric Staggered Strip: Battery Reserve + Cryo Dwell -->
+            <div class="staggered-strip">
+              <div class="strip-cell wide">
+                <div class="strip-top">
+                  <span class="m-label" id="i18n-statBattery">LTV Battery Budget</span>
+                  <strong class="m-val phosphor" id="stat-val-battery">72.9%</strong>
+                </div>
+                <div class="analog-meter">
+                  <div class="analog-fill" id="battery-bar-fill" style="width: 72.9%;"></div>
+                </div>
+              </div>
+              <div class="strip-cell narrow">
+                <span class="m-label" id="i18n-statPsrDwell">Cryo PSR (&lt;110K)</span>
+                <strong class="m-val orange" id="stat-val-psr">42 min</strong>
+              </div>
+            </div>
+
+            <!-- 4-Row Raw Instrument Spec Table -->
+            <div class="spec-ledger">
+              <div class="spec-line">
+                <span class="spec-idx">01</span>
+                <span class="spec-name" id="i18n-statMaxSlope">Peak Slope Traversing</span>
+                <span class="spec-dots"></span>
+                <strong class="spec-reading amber" id="stat-val-slope">16.0°</strong>
+              </div>
+              <div class="spec-line">
+                <span class="spec-idx">02</span>
+                <span class="spec-name" id="i18n-statMinTemp">Min Surface Temp</span>
+                <span class="spec-dots"></span>
+                <strong class="spec-reading" id="stat-val-temp">64.2 K</strong>
+              </div>
+              <div class="spec-line">
+                <span class="spec-idx">03</span>
+                <span class="spec-name" id="i18n-statIceYield">Peak Water Ice Sample</span>
+                <span class="spec-dots"></span>
+                <strong class="spec-reading phosphor" id="stat-val-ice">4.36 wt%</strong>
+              </div>
+              <div class="spec-line">
+                <span class="spec-idx">04</span>
+                <span class="spec-name" id="i18n-statCommsCov">Earth DSN Link Coverage</span>
+                <span class="spec-dots"></span>
+                <strong class="spec-reading" id="stat-val-comms">91.2%</strong>
+              </div>
+            </div>
+          </section>
+
+          <!-- Live Reticle Surface Probe Tape -->
+          <section class="probe-box reveal-step" style="--delay: 260ms;">
+            <div class="probe-header">
+              <span id="i18n-inspectorTitle">CURSOR PDS TELEMETRY</span>
+              <span class="probe-tag">LIVE RETICLE</span>
+            </div>
+            <div class="probe-tape">
+              <div class="probe-cell span-2">
+                <small>STEREOGRAPHIC COORDS</small>
+                <strong id="insp-coords">89.85°S, 180.0°E</strong>
+              </div>
+              <div class="probe-cell">
+                <small>LOLA ELEV</small>
+                <strong id="insp-elev">+1,140 m</strong>
+              </div>
+              <div class="probe-cell">
+                <small>SLOPE GRAD</small>
+                <strong id="insp-slope">6.2°</strong>
+              </div>
+              <div class="probe-cell">
+                <small>DIVINER TEMP</small>
+                <strong id="insp-temp">142.5 K</strong>
+              </div>
+              <div class="probe-cell">
+                <small>H₂O VOLATILE</small>
+                <strong id="insp-ice">0.00 wt%</strong>
+              </div>
+              <div class="probe-cell span-2 status-cell">
+                <small>EPHEMERIS STATE</small>
+                <strong id="insp-status">LOS OK • SUNLIT</strong>
+              </div>
+            </div>
+          </section>
+
+          <!-- Archival Colophon / NASA PDS Source Attribution -->
+          <footer class="colophon-block reveal-step" style="--delay: 330ms;">
+            <div class="colophon-title">ARCHIVAL NASA PDS SOURCES //</div>
+            <p class="colophon-text">
+              <strong>[1]</strong> LRO LOLA DEM (LDEM_85S_20M) •
+              <strong>[2]</strong> Diviner Bolometric Temp (DLRE_TMAX) •
+              <strong>[3]</strong> ShadowCam PSR Albedo •
+              <strong>[4]</strong> JPL HORIZONS DSN Mask.
+            </p>
+          </footer>
+        </aside>
+      </main>
+    </div>
+
+    <!-- Editorial Monograph 7-Slide Pitch Deck Modal -->
+    <div id="pitch-modal-backdrop" class="modal-backdrop hidden">
+      <div class="pitch-monograph">
+        <div class="monograph-topbar">
+          <div class="mono-doc-id" id="i18n-pitchModalTitle">
+            NASA Space Apps 2026 — Official 7-Slide Presentation Deck
+          </div>
+          <button class="mech-btn compact" id="btn-close-pitch">[ESC / CLOSE]</button>
+        </div>
+
+        <div class="monograph-grid">
+          <div class="monograph-left-index">
+            <div class="slide-tag" id="slide-num">SLIDE 1 / 7</div>
+            <h2 class="slide-serif-headline" id="slide-title"></h2>
+            <div class="slide-metric-stamp" id="slide-metric"></div>
+          </div>
+
+          <div class="monograph-right-body">
+            <blockquote class="slide-editorial-quote" id="slide-hook"></blockquote>
+            <ul class="slide-editorial-list" id="slide-bullets"></ul>
+          </div>
+        </div>
+
+        <div class="monograph-footer">
+          <button class="mech-btn" id="btn-prev-slide">← PREV FOLIO</button>
+          <div class="slide-dots" id="slide-dots-container"></div>
+          <button class="mech-btn mech-btn-orange" id="btn-next-slide">NEXT FOLIO →</button>
+        </div>
+      </div>
+    </div>
+
+  </body>
+</html>
